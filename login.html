@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLearn - Login</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Include Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+        }
+        .edu-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .form-container {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl flex rounded-xl overflow-hidden form-container bg-white">
+        <!-- Left side - Image/Branding -->
+        <div class="hidden md:flex md:w-1/2 edu-gradient p-12 text-white flex-col justify-between relative">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">EduLearn</h1>
+                <p class="text-indigo-100">Your gateway to knowledge and skills</p>
+            </div>
+            
+            <!-- Feature points moved to the middle -->
+            <div class="space-y-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-12">
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>Access to 10,000+ courses</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>Expert instructors</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>Learn at your own pace</p>
+                </div>
+            </div>
+            
+            <!-- Decorative book icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 opacity-20 absolute bottom-4 left-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        </div>
+        
+        <!-- Right side - Login Form -->
+        <div class="w-full md:w-1/2 p-8 md:p-12">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
+                <p class="text-gray-600">Please sign in to continue your learning journey</p>
+            </div>
+            
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="your@email.com" required>
+                </div>
+                
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800 transition">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" name="password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="••••••••" required>
+                    <div id="passwordError" class="text-red-500 text-sm mt-1 hidden">Please enter your password</div>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                </div>
+                
+                <div>
+                    <div>
+                <button 
+                type="button" 
+                onclick="window.location.href='home.html'"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                 Sign in
+               </button>
+               </div>
+
+  
+
+            </form>
+            
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">Don't have an account? <a href="./signup.html" class="text-indigo-600 hover:text-indigo-800 font-medium">Sign up</a></p>
+            </div>
+            
+            <div class="mt-8">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <button type="button" class="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                        <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.79 15.71 17.57V20.34H19.28C21.36 18.42 22.56 15.59 22.56 12.25Z" fill="#4285F4"/>
+                            <path d="M12 23C14.97 23 17.46 22.02 19.28 20.34L15.71 17.57C14.73 18.23 13.48 18.63 12 18.63C9.19 18.63 6.8 16.69 5.95 14.1H2.27V16.95C4.08 20.53 7.76 23 12 23Z" fill="#34A853"/>
+                            <path d="M5.95 14.1C5.75 13.5 5.63 12.85 5.63 12.18C5.63 11.51 5.75 10.86 5.95 10.26V7.41H2.27C1.54 8.82 1.11 10.41 1.11 12.18C1.11 13.95 1.54 15.54 2.27 16.95L5.95 14.1Z" fill="#FBBC05"/>
+                            <path d="M12 5.72C13.57 5.72 14.97 6.28 16.08 7.34L19.22 4.2C17.46 2.55 14.97 1.56 12 1.56C7.76 1.56 4.08 4.03 2.27 7.61L5.95 10.46C6.8 7.87 9.19 5.72 12 5.72Z" fill="#EA4335"/>
+                        </svg>
+                        Google
+                    </button>
+                    <button type="button" class="flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+                        <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 16.84 5.44 20.87 10 21.8V15H8V12H10V9.5C10 7.57 11.57 6 13.5 6H16V9H14C13.45 9 13 9.45 13 10V12H16V15H13V21.95C18.05 21.45 22 17.19 22 12Z" fill="#1877F2"/>
+                        </svg>
+                        Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!password) {
+                document.getElementById('passwordError').classList.remove('hidden');
+                return;
+            }
+            
+            // In a real application, you would send this data to your server
+            // For demo purposes, we'll just show an alert
+            alert('Login successful! Welcome to EduLearn.');
+            
+            // Reset form
+            this.reset();
+        });
+        
+        document.getElementById('password').addEventListener('input', function() {
+            document.getElementById('passwordError').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
