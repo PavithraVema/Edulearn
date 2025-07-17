@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - EduLearn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#3730A3',
+                        accent: '#8B5CF6',
+                        success: '#10B981',
+                        warning: '#F59E0B',
+                        danger: '#EF4444',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .course-card:hover .hover-overlay {
+            opacity: 1;
+        }
+        
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <svg class="h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800">EduLearn</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="#" class="text-primary font-medium">Courses</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">Categories</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">About Us</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">Contact</a>
+                </nav>
+                
+                <!-- User Actions -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Search courses..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <svg class="h-4 w-4 text-gray-400 absolute left-3 top-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    
+                    <a href="#" class="hidden md:flex items-center space-x-1 text-gray-600 hover:text-primary transition-colors">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span>Cart</span>
+                    </a>
+                    
+                    <div class="flex items-center space-x-2">
+                        <a href="#" class="px-4 py-2 text-primary border border-primary rounded-md hover:bg-primary hover:text-white transition-colors">Log In</a>
+                        <a href="#" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-secondary transition-colors">Sign Up</a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-600" id="mobileMenuButton">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div class="md:hidden hidden" id="mobileMenu">
+                <div class="py-2 space-y-2">
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:text-primary transition-colors">Home</a>
+                    <a href="#" class="block px-4 py-2 text-primary font-medium">Courses</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:text-primary transition-colors">Categories</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:text-primary transition-colors">About Us</a>
+                    <a href="#" class="block px-4 py-2 text-gray-600 hover:text-primary transition-colors">Contact</a>
+                    <div class="relative px-4 py-2">
+                        <input type="text" placeholder="Search courses..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <svg class="h-4 w-4 text-gray-400 absolute left-7 top-4.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="bg-primary py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Explore Our Courses</h1>
+                <p class="text-indigo-100 text-lg">Discover the perfect course to enhance your skills and advance your career.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    
+                                  
+                                        
+                <!-- Course Listings -->
+                <div class="lg:w-3/4">
+                    <!-- Sorting and Results Count -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <p class="text-gray-600">Showing <span class="font-medium">425</span> results</p>
+                        <div class="flex items-center">
+                            <label for="sort" class="text-sm text-gray-600 mr-2">Sort by:</label>
+                            <select id="sort" class="border border-gray-300 rounded-md text-sm py-1 px-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="popular">Most Popular</option>
+                                <option value="newest">Newest</option>
+                                <option value="highest">Highest Rated</option>
+                                <option value="lowest">Lowest Price</option>
+                                <option value="highest">Highest Price</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Course Card 1 (Free) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt="Web Development Fundamentals" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-blue-100 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Programming</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.8</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">HTML & CSS Fundamentals</h3>
+                                <p class="text-gray-600 text-sm mb-4">Learn the basics of HTML and CSS to build responsive websites from scratch.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>10 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 2 (Paid) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Data Science with Python" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$49.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-green-100 text-green-600 text-xs font-medium px-2.5 py-0.5 rounded">Data Science</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.9</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Data Science with Python</h3>
+                                <p class="text-gray-600 text-sm mb-4">Master data analysis, visualization, and machine learning using Python libraries.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>24 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 3 (Free) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80" alt="Digital Marketing Basics" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-indigo-100 text-indigo-600 text-xs font-medium px-2.5 py-0.5 rounded">Marketing</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.7</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Social Media Marketing</h3>
+                                <p class="text-gray-600 text-sm mb-4">Learn how to create effective social media campaigns and grow your online presence.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>8 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 4 (Paid) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="UX/UI Design Masterclass" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$79.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-yellow-100 text-yellow-600 text-xs font-medium px-2.5 py-0.5 rounded">Design</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">5.0</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">UX/UI Design Masterclass</h3>
+                                <p class="text-gray-600 text-sm mb-4">Create stunning user interfaces and improve user experience for web and mobile apps.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>30 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>All Levels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 5 (Paid) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="JavaScript Mastery" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$59.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-blue-100 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Programming</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.9</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">JavaScript Mastery</h3>
+                                <p class="text-gray-600 text-sm mb-4">Become a JavaScript expert with modern ES6+ features, async programming, and more.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>20 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 6 (Free) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Photography Basics" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-yellow-100 text-yellow-600 text-xs font-medium px-2.5 py-0.5 rounded">Photography</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.6</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Photography Basics</h3>
+                                <p class="text-gray-600 text-sm mb-4">Learn the fundamentals of photography, including composition, lighting, and camera settings.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>6 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 7 (Paid) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Flutter App Development" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$69.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-purple-100 text-purple-600 text-xs font-medium px-2.5 py-0.5 rounded">Mobile Dev</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.8</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Flutter App Development</h3>
+                                <p class="text-gray-600 text-sm mb-4">Build beautiful native apps for iOS and Android with Flutter and Dart programming.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>28 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 8 (Free) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Public Speaking" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-red-100 text-red-600 text-xs font-medium px-2.5 py-0.5 rounded">Business</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.5</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Public Speaking Essentials</h3>
+                                <p class="text-gray-600 text-sm mb-4">Overcome fear of public speaking and learn to deliver powerful presentations with confidence.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>5 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>All Levels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Course Card 9 (Paid) -->
+                        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" alt="Advanced Python" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$89.99</span>
+
+                                <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Photography Basics" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Public Speaking" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-success text-white text-xs font-bold px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Data Science with Python" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$49.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-green-100 text-green-600 text-xs font-medium px-2.5 py-0.5 rounded">Data Science</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.9</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Data Science with Python</h3>
+                                <p class="text-gray-600 text-sm mb-4">Master data analysis, visualization, and machine learning using Python libraries.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>24 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-indigo-100 text-indigo-600 text-xs font-medium px-2.5 py-0.5 rounded">Marketing</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">4.7</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">Social Media Marketing</h3>
+                                <p class="text-gray-600 text-sm mb-4">Learn how to create effective social media campaigns and grow your online presence.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>8 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow course-card">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="UX/UI Design Masterclass" class="w-full h-48 object-cover">
+                                <div class="absolute top-4 left-4">
+                                    <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">$79.99</span>
+                                </div>
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity hover-overlay">
+                                    <a href="#" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary transition-colors">View Course</a>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-yellow-100 text-yellow-600 text-xs font-medium px-2.5 py-0.5 rounded">Design</span>
+                                    <div class="ml-auto flex items-center text-yellow-400">
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        <span class="ml-1 text-sm">5.0</span>
+                                    </div>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">UX/UI Design Masterclass</h3>
+                                <p class="text-gray-600 text-sm mb-4">Create stunning user interfaces and improve user experience for web and mobile apps.</p>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <div class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>30 hours</span>
+                                    </div>
+                                    <div class="flex items-center ml-4">
+                                        <svg class="h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                                        </svg>
+                                        <span>All Levels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
